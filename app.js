@@ -11,6 +11,11 @@ const app = express();
 app.use(cors()); // Allow cross-origin requests
 app.use(express.json()); // Parse incoming JSON requests
 
+// GET root for testing if backend is live
+app.get('/', (req, res) => {
+  res.send('Viber Bot Backend is running!');
+});
+
 // POST endpoint to send a Viber message
 app.post('/api/send-message', async (req, res) => {
   try {
@@ -42,9 +47,7 @@ app.post('/api/send-message', async (req, res) => {
 // POST endpoint for Viber webhook
 app.post('/webhook', (req, res) => {
   console.log('Webhook received from Viber:', JSON.stringify(req.body, null, 2));
-
-  // Respond to Viber with 200 OK
-  res.status(200).end();
+  res.status(200).end(); // Always respond with 200 OK
 });
 
 // Start the server
